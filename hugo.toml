@@ -2,8 +2,8 @@
 # မှတ်ချက် — ဤဖိုင်ကို local တွင် build မလုပ်ပါ။ GitHub Actions (.github/workflows/deploy.yml) က build လုပ်သည်
 
 # baseURL ကို CI က `--baseURL` ဖြင့် အစားထိုးသဖြင့် ဤတန်ဖိုးသည် နမူနာသာ ဖြစ်သည်
-baseURL = "https://example.org/"
-title = "TODO(owner) ဘလော့ဂ်ခေါင်းစဉ်"
+baseURL = "https://github.com/Control-System-Engineer-CSE-MM/CSE-Blog-Post"
+title = "CSE-Blog"
 
 # မြန်မာဘာသာကို မူလအဖြစ် root တွင် ထုတ်ဝေပြီး English ကို /en/ အောက်တွင် ထုတ်ဝေသည်
 defaultContentLanguage = "my"
@@ -31,11 +31,11 @@ pluralizeListTitles = false
     label = "မြန်မာ"
     locale = "my"
     contentDir = "content/my"
-    title = "TODO(owner) ဘလော့ဂ်ခေါင်းစဉ်"
+    title = "Mechatronic Enigneering"
     weight = 1
     [languages.my.params]
-      description = "TODO(owner): ဤဘလော့ဂ်အကြောင်း တစ်ကြောင်းတည်း ဖော်ပြချက်"
-      tagline = "TODO(owner): ဘလော့ဂ်၏ ဆောင်ပုဒ်"
+      description = "Mechatronic Engineering အကြောင်း လေ့လာကြမယ်"
+      tagline = "Mechatronic Engineering & Control System Engineering"
   [languages.en]
     label = "English"
     locale = "en"
@@ -68,6 +68,6 @@ pluralizeListTitles = false
 # --- ဆိုက်တစ်ခုလုံး params ---
 [params]
   # "owner/repo" ပုံစံ — ဖြည့်ပြီးမှ "ဤစာမျက်နှာကို ပြင်ရန်" link နှင့် footer ရှိ source link ပေါ်မည်
-  githubRepo = ""
+  githubRepo = "https://github.com/Control-System-Engineer-CSE-MM/CSE-Blog-Post"
   githubBranch = "main"
-  author = "TODO(owner)"
+  author = "K4H"
