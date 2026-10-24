@@ -1,0 +1,12 @@
+{{- /* render-passthrough.html — $…$ / $$…$$ ညီမျှခြင်းများကို build လုပ်စဉ် KaTeX (Hugo ၌ ပါပြီးသား) ဖြင့် HTML+MathML အဖြစ် ပြောင်းသည်
+       throwOnError=false ဖြစ်သဖြင့် ညီမျှခြင်း အမှားတစ်ခုကြောင့် ဆိုက်တစ်ခုလုံး build မပျက်ပါ (အမှားကို စာသားအဖြစ် ပြသည်) */ -}}
+{{- $opts := dict "output" "htmlAndMathml" "displayMode" (eq .Type "block") "throwOnError" false "strict" "ignore" -}}
+{{- with try (transform.ToMath .Inner $opts) -}}
+  {{- with .Err -}}
+    {{- warnf "ညီမျှခြင်းကို render မလုပ်နိုင်ပါ: %s (%s)" . $.Position -}}
+    <code>{{ $.Inner }}</code>
+  {{- else -}}
+    {{- .Value -}}
+    {{- $.Page.Store.Set "hasMath" true -}}
+  {{- end -}}
+{{- end -}}

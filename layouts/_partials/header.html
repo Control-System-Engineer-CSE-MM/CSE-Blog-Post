@@ -1,0 +1,16 @@
+{{- /* header.html — ဆိုက်ခေါင်းစီး (အမည် · မီနူး · ဘာသာပြောင်း · ပြသမှု ရွေးချယ်ချက် · breadcrumb) */ -}}
+<header class="site-header">
+  <div class="container site-header__bar">
+    <a class="site-title" href="{{ "/" | relLangURL }}">{{ site.Title }}</a>
+    <nav class="site-nav" aria-label="{{ i18n "nav_main" }}">
+      <a href="{{ "blog/" | relLangURL }}">{{ i18n "nav_blog" }}</a>
+      <a href="{{ "tags/" | relLangURL }}">{{ i18n "nav_tags" }}</a>
+      {{ with site.Home.OutputFormats.Get "rss" }}<a href="{{ .RelPermalink }}">{{ i18n "nav_rss" }}</a>{{ end }}
+    </nav>
+    {{ partial "lang-switch.html" . }}
+  </div>
+  <div class="container crumbs-row">
+    <div class="crumbs">{{ partial "breadcrumb.html" . }}</div>
+    {{ partial "settings.html" . }}
+  </div>
+</header>

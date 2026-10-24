@@ -1,0 +1,11 @@
+{{- /* footer.html — ဆိုက်ခြေစာ */ -}}
+<footer class="site-footer">
+  <div class="container">
+    <pre class="ascii" aria-hidden="true">────────── ◆ ──────────</pre>
+    <ul class="site-footer__links">
+      <li>© {{ now.Year }} {{ site.Params.author }}</li>
+      {{ with site.Home.OutputFormats.Get "rss" }}<li><a href="{{ .RelPermalink }}">{{ i18n "nav_rss" }}</a></li>{{ end }}
+      {{ with site.Params.githubRepo }}<li><a href="https://github.com/{{ . }}">{{ i18n "source" }}</a></li>{{ end }}
+    </ul>
+  </div>
+</footer>

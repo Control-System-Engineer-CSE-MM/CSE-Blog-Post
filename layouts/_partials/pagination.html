@@ -1,0 +1,8 @@
+{{- /* pagination.html — စာမျက်နှာလှန် (E-Ink တွင် scroll အစား ဤခလုတ်များကို သုံးရန်)။ context (.) သည် pager ဖြစ်သည် */ -}}
+{{ if gt .TotalPages 1 }}
+<nav class="pager" aria-label="{{ i18n "pagination" }}">
+  {{ if .HasPrev }}<a class="btn" rel="prev" href="{{ .Prev.URL }}">{{ i18n "newer" }}</a>{{ else }}<span></span>{{ end }}
+  <span>{{ .PageNumber }} / {{ .TotalPages }}</span>
+  {{ if .HasNext }}<a class="btn" rel="next" href="{{ .Next.URL }}">{{ i18n "older" }}</a>{{ else }}<span></span>{{ end }}
+</nav>
+{{ end }}

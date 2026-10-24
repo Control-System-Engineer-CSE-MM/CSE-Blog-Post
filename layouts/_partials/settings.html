@@ -1,0 +1,28 @@
+{{- /* settings.html — ပြသမှု ရွေးချယ်ချက်များ (theme · စာလုံးအရွယ် · ဖတ်မည့်ဘာသာ · glass)။ <details> ဖြစ်သဖြင့် JavaScript မပါလည်း ဖွင့်/ပိတ်ရသည်၊ ခလုတ်များကိုမူ controls.js က အလုပ်လုပ်စေသည် */ -}}
+<details class="settings">
+  <summary aria-label="{{ i18n "display_settings" }}">Aa</summary>
+  <div class="settings__panel">
+    <div class="settings__group" role="group" aria-label="{{ i18n "theme" }}">
+      <p class="settings__label">{{ i18n "theme" }}</p>
+      <button type="button" data-action="theme" data-value="paper">{{ i18n "theme_paper" }}</button>
+      <button type="button" data-action="theme" data-value="eink">{{ i18n "theme_eink" }}</button>
+      <button type="button" data-action="theme" data-value="dark">{{ i18n "theme_dark" }}</button>
+      <button type="button" data-action="theme" data-value="auto">{{ i18n "theme_auto" }}</button>
+    </div>
+    <div class="settings__group" role="group" aria-label="{{ i18n "font_size" }}">
+      <p class="settings__label">{{ i18n "font_size" }}</p>
+      <button type="button" data-action="font-size" data-value="-" aria-label="{{ i18n "font_smaller" }}">A−</button>
+      <button type="button" data-action="font-size" data-value="+" aria-label="{{ i18n "font_larger" }}">A+</button>
+    </div>
+    <div class="settings__group" role="group" aria-label="{{ i18n "view_lang" }}">
+      <p class="settings__label">{{ i18n "view_lang" }}</p>
+      <button type="button" data-action="bilingual" data-value="my">မြန်မာ</button>
+      <button type="button" data-action="bilingual" data-value="en">English</button>
+      <button type="button" data-action="bilingual" data-value="both">{{ i18n "view_both" }}</button>
+    </div>
+    <div class="settings__group" role="group" aria-label="{{ i18n "glass" }}">
+      <p class="settings__label">{{ i18n "glass" }}</p>
+      <button type="button" data-action="glass">Glass</button>
+    </div>
+  </div>
+</details>

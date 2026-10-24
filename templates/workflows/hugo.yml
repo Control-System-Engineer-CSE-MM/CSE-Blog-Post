@@ -1,0 +1,77 @@
+# Hugo ဝက်ဘ်ဆိုက်ကို GitHub Actions ဖြင့် build လုပ်ပြီး GitHub Pages သို့ တင်သည့် workflow နမူနာ
+# အသုံးပြုရန်: ဤဖိုင်ကို .github/workflows/deploy.yml အဖြစ် ကူးထားပြီး AI က "TODO(agent)" များကို ဖြည့်ရမည်
+# မှတ်ချက် — Local တွင် Hugo ကို install မလုပ်ပါ။ build အားလုံးကို ဤ workflow က လုပ်သည်
+
+name: Deploy site (Hugo)
+
+on:
+  push:
+    branches: [main]          # main သို့ တင်လျှင် build လုပ်ပြီး ထုတ်ဝေသည်
+  pull_request:               # PR တွင် build ကိုသာ စစ်သည် (မထုတ်ဝေ)
+  workflow_dispatch:          # လက်ဖြင့် run လိုလျှင်
+
+# အနည်းဆုံး လိုအပ်သော ခွင့်ပြုချက်များသာ ပေးသည်
+permissions:
+  actions: read
+  contents: read
+  pages: write
+  id-token: write
+
+# deploy နှစ်ခု တစ်ပြိုင်နက် မဖြစ်စေရန် (လက်ရှိ run ကို မဖျက်ဘဲ တန်းစီစေသည်)
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # TODO(agent): Hugo ၏ နောက်ဆုံး stable ဗားရှင်းကို တရားဝင် release စာမျက်နှာတွင် စစ်ပြီး အတိအကျ ထည့်ပါ ("latest" မသုံးရ)
+      HUGO_VERSION: "TODO"
+      TZ: Asia/Yangon         # ရက်စွဲပြသမှု တည်ငြိမ်စေရန်
+      HUGO_ENVIRONMENT: production
+    steps:
+      - name: Hugo CLI ကို install လုပ်သည် (runner ပေါ်တွင်သာ)
+        run: |
+          wget -q -O "${{ runner.temp }}/hugo.deb" \
+            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb"
+          sudo dpkg -i "${{ runner.temp }}/hugo.deb"
+
+      - name: Source ကို ရယူသည်
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+          fetch-depth: 0          # git မှ "နောက်ဆုံးပြင်ဆင်ချိန်" ယူရန် history အပြည့်လိုသည်
+
+      - name: Pages အချက်အလက် (base URL) ရယူသည်
+        id: pages
+        uses: actions/configure-pages@v6
+
+      - name: Content ကို စစ်ဆေးသည် (python3 stdlib၊ မပိတ်ဆို့)
+        run: python3 scripts/check_content.py content   # TODO(agent): content ဖိုလ်ဒါ လမ်းကြောင်းကို ညှိပါ
+        continue-on-error: true
+
+      - name: Hugo ဖြင့် build လုပ်သည်
+        run: hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+
+      - name: Pages artifact တင်သည်
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ./public
+
+  deploy:
+    # PR တွင် မထုတ်ဝေ၊ build မအောင်မြင်လျှင်လည်း မထုတ်ဝေ (needs ကြောင့်)
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: GitHub Pages သို့ ထုတ်ဝေသည်
+        id: deployment
+        uses: actions/deploy-pages@v5

@@ -1,0 +1,11 @@
+{{- /* breadcrumb.html — prompt ပုံစံ လမ်းကြောင်း (Oh-My-Posh ကဲ့သို့ segment များ၊ CSS clip-path ဖြင့် ပြုလုပ်သည်) */ -}}
+<nav class="prompt" aria-label="{{ i18n "breadcrumb" }}">
+  {{- range .Ancestors.Reverse }}
+  <a class="prompt__seg{{ if not .IsHome }} prompt__seg--alt{{ end }}" href="{{ .RelPermalink }}">{{ if .IsHome }}~{{ else }}{{ .LinkTitle }}{{ end }}</a>
+  {{- end }}
+  {{- if .IsHome }}
+  <span class="prompt__seg" aria-current="page">~</span>
+  {{- else }}
+  <span class="prompt__seg prompt__seg--alt" aria-current="page">{{ or .LinkTitle (i18n "not_found_title") }}</span>
+  {{- end }}
+</nav>

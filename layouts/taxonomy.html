@@ -1,0 +1,8 @@
+{{- /* taxonomy.html — တဂ်အားလုံး၏ စာရင်း */ -}}
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+{{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+<ul class="tags">
+  {{ range .Pages.ByTitle }}<li><a class="chip" href="{{ .RelPermalink }}">{{ .LinkTitle }} ({{ len .Pages }})</a></li>{{ end }}
+</ul>
+{{ end }}

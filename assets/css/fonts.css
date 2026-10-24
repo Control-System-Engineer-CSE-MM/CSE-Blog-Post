@@ -1,0 +1,79 @@
+/* fonts.css — ကိုယ်တိုင် host လုပ်ထားသော ဖောင့်များ (WOFF2)
+   - ဖောင့်ဖိုင်များ: static/fonts/  ·  လိုင်စင် (SIL OFL 1.1): static/fonts/LICENSES.txt
+   - url("../fonts/…") သည် CSS ဖိုင်၏ တည်နေရာနှင့် နှိုင်းယှဉ်သဖြင့် /<repo>/ ကဲ့သို့ sub-path အောက်တွင်လည်း မှန်ကန်စွာ အလုပ်လုပ်သည်
+   - unicode-range ဖြင့် Latin နှင့် မြန်မာ ဖောင့်များကို သီးခြားစီ ဒေါင်းလုဒ်လုပ်စေသည် (သုံးသော ဖောင့်ကိုသာ load လုပ်မည်) */
+
+/* UI / ခေါင်းစဉ် — Inter (Latin၊ variable weight) */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/inter-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ဖတ်ရန်စာသား — Source Serif 4 (Latin) */
+@font-face {
+  font-family: "Source Serif 4";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/source-serif-4-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Source Serif 4";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/source-serif-4-latin-600-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ဖတ်ရန်စာသား — Noto Serif Myanmar (မြန်မာစာသာ၊ Latin ကို အထက်ပါ ဖောင့်က ယူသည်) */
+@font-face {
+  font-family: "Noto Serif Myanmar";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/noto-serif-myanmar-myanmar-400-normal.woff2") format("woff2");
+  unicode-range: U+1000-109F, U+200C-200D, U+25CC, U+A92E, U+A9E0-A9FE, U+AA60-AA7F;
+}
+@font-face {
+  font-family: "Noto Serif Myanmar";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/noto-serif-myanmar-myanmar-600-normal.woff2") format("woff2");
+  unicode-range: U+1000-109F, U+200C-200D, U+25CC, U+A92E, U+A9E0-A9FE, U+AA60-AA7F;
+}
+
+/* UI အတွက် မြန်မာစာ — Noto Sans Myanmar */
+@font-face {
+  font-family: "Noto Sans Myanmar";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/noto-sans-myanmar-myanmar-400-normal.woff2") format("woff2");
+  unicode-range: U+1000-109F, U+200C-200D, U+25CC, U+A92E, U+A9E0-A9FE, U+AA60-AA7F;
+}
+@font-face {
+  font-family: "Noto Sans Myanmar";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/noto-sans-myanmar-myanmar-600-normal.woff2") format("woff2");
+  unicode-range: U+1000-109F, U+200C-200D, U+25CC, U+A92E, U+A9E0-A9FE, U+AA60-AA7F;
+}
+
+/* Monospace / ASCII art — JetBrains Mono (ဘောင်၊ block၊ မြား သင်္ကေတများ ပါအောင် ချုံ့ထားသည်)
+   ASCII art ၏ ကော်လံများ မညီမျှခြင်း မဖြစ်စေရန် ဘောင်သင်္ကေတများကို ဤဖောင့်ကပင် ပေးရမည် */
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/jetbrains-mono-ascii-400-normal.woff2") format("woff2");
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2000-206F, U+2190-21FF, U+2500-25FF, U+2713, U+2717, U+276F, U+20AC;
+}

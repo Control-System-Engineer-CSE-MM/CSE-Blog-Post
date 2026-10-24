@@ -1,0 +1,120 @@
+/* site.css — ဘလော့ဂ်၏ အပြင်အဆင် (layout) နှင့် အစိတ်အပိုင်းများ
+   - အရောင်၊ စာလုံး၊ နေရာလွတ် တန်ဖိုးအားလုံးကို tokens.css ၏ variable များမှသာ ယူသည်
+   - tokens.css ကို မပြင်ဘဲ ထားပြီး ဆိုက်အတွက် သီးသန့် ပြင်ဆင်မှုများကို ဤဖိုင်တွင်သာ ရေးပါ */
+
+/* ဘလော့ဂ်သည် ဖတ်ရန်အဓိကဖြစ်၍ တစ်ကော်လံတည်း၊ ကျဉ်းသော အကျယ်ကို သုံးသည် */
+:root {
+  --wrap: 46rem;
+  --measure: 46rem;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+main { padding-block: var(--space-5) var(--space-7); }
+
+/* ---------- ခေါင်းစီး ---------- */
+.site-header { border-bottom: 1px solid var(--border); padding-top: max(var(--space-3), env(safe-area-inset-top)); }
+.site-header__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); padding-block: var(--space-2); }
+.site-title { font-family: var(--font-ui); font-weight: 650; font-size: var(--step-1); color: var(--text); text-decoration: none; }
+.site-nav { display: flex; flex-wrap: wrap; gap: var(--space-4); font-family: var(--font-ui); font-size: var(--step--1); }
+.site-nav a { color: var(--text); text-decoration-color: var(--border-strong); }
+.site-nav a[aria-current="page"] { text-decoration-thickness: 2px; text-decoration-color: currentColor; }
+
+/* ပြသမှု ရွေးချယ်ချက် — <details> ဖြင့် JavaScript မလိုဘဲ ဖွင့်/ပိတ်နိုင်သည် */
+.settings > summary {
+  list-style: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+  min-height: 2.75rem; min-width: 2.75rem; padding: 0 var(--space-3);
+  font-family: var(--font-mono); font-size: var(--step--1);
+  border: 1px solid var(--border-strong); border-radius: var(--radius-s); background: var(--surface); color: var(--text);
+}
+.settings > summary::-webkit-details-marker { display: none; }
+.settings[open] > summary { background: var(--text); color: var(--bg); }
+.settings__panel { display: flex; flex-wrap: wrap; gap: var(--space-2); padding-block: var(--space-3); }
+.settings__group { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.settings__label { width: 100%; font-family: var(--font-ui); font-size: var(--step--1); color: var(--text-2); margin: 0; }
+
+.lang-switch { display: inline-flex; gap: var(--space-2); font-family: var(--font-ui); font-size: var(--step--1); }
+.lang-switch__current { font-weight: 650; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .25em; }
+
+/* breadcrumb (prompt ပုံစံ) — နောက်ဆုံး segment ရှည်လျှင် ellipsis ဖြင့် ဖြတ်သည် */
+.crumbs { padding-block: var(--space-2) var(--space-3); }
+.crumbs .prompt { margin: 0; }
+.crumbs .prompt__seg { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- ပင်မစာမျက်နှာ (hero) ---------- */
+.hero { margin-bottom: var(--space-6); }
+.hero .ascii { font-size: clamp(.8rem, 3.2vw, 1.1rem); margin-bottom: var(--space-3); }
+.hero__prompt { font-family: var(--font-mono); font-size: var(--step--1); color: var(--text-2); margin: 0; }
+.hero__lead { margin-top: var(--space-4); }
+.section-title { font-size: var(--step-1); margin-top: var(--space-6); display: flex; align-items: center; gap: var(--space-3); }
+.section-title::after { content: ""; flex: 1; border-top: 1px solid var(--border-strong); }
+
+/* ---------- ပို့စ်စာရင်း ---------- */
+.post-item { padding-block: var(--space-4); border-bottom: 1px solid var(--border); }
+.post-item:last-child { border-bottom: 0; }
+.post-item__meta { font-family: var(--font-mono); font-size: var(--step--1); color: var(--text-2); margin: 0 0 var(--space-1); }
+.post-item__title { font-size: var(--step-1); margin: 0 0 var(--space-2); }
+.post-item__title a { color: var(--text); text-decoration-color: var(--border-strong); }
+.post-item__desc { margin: 0 0 var(--space-2); color: var(--text-2); }
+.tags { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+.tags a { text-decoration: none; }
+
+/* စာမျက်နှာလှန် (pagination) */
+.pager { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-6); font-family: var(--font-ui); font-size: var(--step--1); }
+
+/* ---------- ပို့စ်တစ်ခု ---------- */
+.post__header { margin-bottom: var(--space-5); }
+.post__header h1 { margin-bottom: var(--space-3); }
+.post__meta { font-family: var(--font-mono); font-size: var(--step--1); color: var(--text-2); display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); margin: 0 0 var(--space-3); }
+.post__lead { font-size: var(--step-1); color: var(--text-2); margin: 0; }
+.post__footer { margin-top: var(--space-7); padding-top: var(--space-4); border-top: 1px solid var(--border-strong); font-family: var(--font-ui); font-size: var(--step--1); display: grid; gap: var(--space-3); }
+.post__footer p { margin: 0; }
+
+.prose { max-width: none; }
+.prose :is(ul, ol) { padding-left: 1.4em; }
+.prose li { margin-bottom: var(--space-1); }
+.prose img { display: block; margin: var(--space-4) 0; border-radius: var(--radius-s); }
+.prose h2, .prose h3 { scroll-margin-top: var(--space-5); }
+
+/* မာတိကာ */
+.toc { border: 1px solid var(--border); border-radius: var(--radius-m); padding: var(--space-3) var(--space-4); margin-bottom: var(--space-5); font-family: var(--font-ui); font-size: var(--step--1); }
+.toc summary { cursor: pointer; font-weight: 650; }
+.toc nav ul { padding-left: 1.2em; margin: var(--space-2) 0 0; }
+
+/* footnote များ */
+.footnotes { font-size: var(--step--1); color: var(--text-2); border-top: 1px solid var(--border); margin-top: var(--space-6); }
+.footnotes ol { padding-left: 1.4em; }
+
+/* ဘာသာပြန်မူကြမ်း သတိပေးချက် */
+.notice { border: 1px solid var(--border-strong); border-radius: var(--radius-s); padding: var(--space-2) var(--space-3); font-family: var(--font-ui); font-size: var(--step--1); margin: 0 0 var(--space-4); }
+
+/* ---------- ခြေစာ ---------- */
+.site-footer { border-top: 1px solid var(--border); padding-block: var(--space-5); font-family: var(--font-ui); font-size: var(--step--1); color: var(--text-2); }
+.site-footer .ascii { margin: 0 0 var(--space-3); color: var(--text-2); }
+.site-footer__links { display: flex; flex-wrap: wrap; gap: var(--space-4); margin: 0; padding: 0; list-style: none; }
+.site-footer a { color: var(--text-2); }
+
+/* 404 */
+.notfound { text-align: left; }
+
+/* Dynamic Island အတွင်းရှိ ခလုတ်များ (glass ဖွင့်မှသာ ပေါ်သည် — P3) */
+.island [data-action] { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .35); min-height: 2rem; min-width: 2rem; padding: .1rem .5rem; }
+.island [data-action]:hover, .island [aria-pressed="true"] { background: #fff; color: #000; }
+
+/* E-Ink — header ကို တည်ငြိမ်စေပြီး ကိုယ်တိုင်ရွေးသော ခလုတ်များကို ပိုထင်ရှားစေသည် */
+:root[data-theme="eink"] .site-header { border-bottom: 2px solid #000; }
+:root[data-theme="eink"] .post-item { border-bottom: 1px solid #000; }
+:root[data-theme="eink"] .settings > summary { border: 2px solid #000; }
+:root[data-theme="eink"] .pager .btn { border: 2px solid #000; min-height: 3rem; }
+
+@media print {
+  .site-header, .site-footer, .pager, .island { display: none !important; }
+}
+
+/* breadcrumb နှင့် ပြသမှုရွေးချယ်ချက်ကို တစ်တန်းတည်းတွင် ထားပြီး ရွေးချယ်ချက်ဖွင့်လျှင် အောက်သို့ အပြည့်ချဲ့သည် */
+.crumbs-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--space-2) var(--space-3); }
+.crumbs { flex: 1 1 12rem; min-width: 0; }
+.settings[open] { flex-basis: 100%; }

@@ -1,0 +1,28 @@
+{{- /* page.html — ပို့စ်တစ်ခု၏ စာမျက်နှာ */ -}}
+{{ define "main" }}
+<article class="post">
+  <header class="post__header">
+    <h1>{{ .Title }}</h1>
+    <p class="post__meta">
+      {{ if not .Date.IsZero }}<span>{{ i18n "published" }}: <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time></span>{{ end }}
+      {{ with .Lastmod }}{{ if ne (.Format "2006-01-02") ($.Date.Format "2006-01-02") }}<span>{{ i18n "updated" }}: <time datetime="{{ .Format "2006-01-02" }}">{{ .Format "2006-01-02" }}</time></span>{{ end }}{{ end }}
+    </p>
+    {{ with .GetTerms "tags" }}<ul class="tags">{{ range . }}<li><a class="chip" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>{{ end }}</ul>{{ end }}
+    {{ with .Description }}<p class="post__lead">{{ . }}</p>{{ end }}
+  </header>
+
+  {{ if eq (.Params.translation | default "") "draft" }}<p class="notice">{{ i18n "translation_draft" }}</p>{{ end }}
+
+  {{ if .Params.toc }}{{ with .TableOfContents }}<details class="toc"><summary>{{ i18n "toc" }}</summary>{{ . }}</details>{{ end }}{{ end }}
+
+  <div class="prose">{{ .Content }}</div>
+
+  <footer class="post__footer">
+    {{- /* ဤစာမျက်နှာကို GitHub ၏ editor ဖြင့် တိုက်ရိုက်ပြင်ရန် link (hugo.toml တွင် githubRepo ဖြည့်မှသာ ပေါ်မည်) */ -}}
+    {{ with site.Params.githubRepo }}{{ if $.File }}
+    <p><a href="https://github.com/{{ . }}/edit/{{ site.Params.githubBranch | default "main" }}/content/{{ $.Language.Name }}/{{ $.File.Path }}">{{ i18n "edit_this_page" }}</a></p>
+    {{ end }}{{ end }}
+    <p><a href="{{ "blog/" | relLangURL }}">◂ {{ i18n "nav_blog" }}</a></p>
+  </footer>
+</article>
+{{ end }}

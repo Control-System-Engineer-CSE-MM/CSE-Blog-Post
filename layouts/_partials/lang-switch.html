@@ -1,0 +1,23 @@
+{{- /* lang-switch.html — ဘာသာပြောင်းခလုတ်။ ဘာသာပြန်စာမျက်နှာရှိလျှင် ထိုစာမျက်နှာသို့၊ မရှိလျှင် ထိုဘာသာ၏ ပင်မစာမျက်နှာသို့ သွားသည် */ -}}
+{{- $page := . -}}
+<nav class="lang-switch" aria-label="{{ i18n "language" }}">
+  {{- range site.Languages -}}
+    {{- $lang := . -}}
+    {{- if eq $lang.Name site.Language.Name -}}
+      <span class="lang-switch__current" aria-current="true" lang="{{ $lang.Locale }}">{{ $lang.Label }}</span>
+    {{- else -}}
+      {{- $href := "" -}}
+      {{- range $page.AllTranslations -}}
+        {{- if eq .Language.Name $lang.Name -}}{{- $href = .RelPermalink -}}{{- end -}}
+      {{- end -}}
+      {{- if not $href -}}
+        {{- if $lang.IsDefault -}}
+          {{- $href = "" | relURL -}}
+        {{- else -}}
+          {{- $href = printf "%s/" $lang.Name | relURL -}}
+        {{- end -}}
+      {{- end -}}
+      <a href="{{ $href }}" hreflang="{{ $lang.Locale }}" lang="{{ $lang.Locale }}">{{ $lang.Label }}</a>
+    {{- end -}}
+  {{- end -}}
+</nav>

@@ -1,0 +1,8 @@
+{{- /* section.html — ဘလော့ဂ် စာရင်း (နောက်ဆုံးရက်စွဲအစီအစဉ်၊ စာမျက်နှာခွဲထားသည်) */ -}}
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+{{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+{{ $pager := .Paginate .Pages.ByDate.Reverse }}
+{{ range $pager.Pages }}{{ partial "post-item.html" . }}{{ else }}<p>{{ i18n "no_posts" }}</p>{{ end }}
+{{ partial "pagination.html" $pager }}
+{{ end }}

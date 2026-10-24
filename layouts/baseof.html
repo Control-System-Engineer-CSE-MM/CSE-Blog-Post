@@ -1,0 +1,20 @@
+{{- /* baseof.html — စာမျက်နှာအားလုံး၏ အခြေခံ ဘောင် (head · header · main · footer) */ -}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.Locale }}" dir="{{ or site.Language.Direction `ltr` }}">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  <a class="skip-link" href="#main">{{ i18n "skip_to_content" }}</a>
+  {{ partial "header.html" . }}
+  <main id="main" class="container">
+    {{- block "main" . }}{{ end -}}
+  </main>
+  {{ partial "footer.html" . }}
+  {{ partial "island.html" . }}
+  {{- /* controls.js — theme / စာလုံးအရွယ် ခလုတ်များအတွက် (JavaScript မပါလည်း စာဖတ်၍ရသည်) */ -}}
+  {{ with resources.Get "js/controls.js" | minify | fingerprint }}
+  <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
+  {{ end }}
+</body>
+</html>

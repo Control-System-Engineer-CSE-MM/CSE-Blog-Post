@@ -1,0 +1,7 @@
+{{- /* term.html — တဂ်တစ်ခုအောက်ရှိ ပို့စ်များ */ -}}
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+{{ $pager := .Paginate .Pages.ByDate.Reverse }}
+{{ range $pager.Pages }}{{ partial "post-item.html" . }}{{ else }}<p>{{ i18n "no_posts" }}</p>{{ end }}
+{{ partial "pagination.html" $pager }}
+{{ end }}

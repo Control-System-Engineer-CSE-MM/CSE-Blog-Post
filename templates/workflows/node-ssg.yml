@@ -1,0 +1,85 @@
+# Node အခြေပြု SSG (Astro · Eleventy · Docusaurus) အတွက် GitHub Actions workflow နမူနာ
+# အသုံးပြုရန်: ဤဖိုင်ကို .github/workflows/deploy.yml အဖြစ် ကူးပြီး AI က "TODO(agent)" များကို ဖြည့်ရမည်
+# မှတ်ချက် — Local တွင် Node/npm ကို build အတွက် install မလုပ်ပါ။ build အားလုံးကို ဤ workflow က လုပ်သည်
+
+name: Deploy site (Node SSG)
+
+on:
+  push:
+    branches: [main]
+  pull_request:               # PR တွင် build ကိုသာ စစ်သည် (မထုတ်ဝေ)
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # TODO(agent): ရွေးထားသော SSG အလိုက် build ထွက်ဖိုလ်ဒါကို သတ်မှတ်ပါ — Astro: dist · Eleventy: _site · Docusaurus: build
+      PUBLISH_DIR: "TODO"
+      # TODO(agent): Node ၏ လက်ရှိ LTS ကို တရားဝင်စာမျက်နှာတွင် စစ်ပြီး ထည့်ပါ (ဥပမာ "22")
+      NODE_VERSION: "TODO"
+      TZ: Asia/Yangon
+    steps:
+      - name: Source ကို ရယူသည်
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Node ကို ပြင်ဆင်သည်
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          # package-lock.json ရှိလာပြီးမှသာ အောက်ပါစာကြောင်းကို ဖွင့်ပါ (မရှိဘဲဖွင့်လျှင် error ပေးသည်)
+          # cache: npm
+
+      - name: Pages အချက်အလက် (base path) ရယူသည်
+        id: pages
+        uses: actions/configure-pages@v6
+
+      - name: Dependencies ထည့်သွင်းသည်
+        # Local တွင် lockfile မထုတ်နိုင်သဖြင့် — lockfile ရှိလျှင် npm ci၊ မရှိလျှင် npm install (package.json တွင် ဗားရှင်းအတိအကျ ထားရန်)
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install --no-audit --no-fund
+          fi
+
+      - name: Content ကို စစ်ဆေးသည် (python3 stdlib၊ မပိတ်ဆို့)
+        run: python3 scripts/check_content.py content   # TODO(agent): content ဖိုလ်ဒါ လမ်းကြောင်းကို ညှိပါ
+        continue-on-error: true
+
+      - name: Build လုပ်သည်
+        # SSG ၏ config က ဤ env တန်ဖိုးများကို ဖတ်ပြီး site URL နှင့် base path ကို သတ်မှတ်ရမည်
+        env:
+          SITE_ORIGIN: ${{ steps.pages.outputs.origin }}
+          SITE_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: npm run build
+
+      - name: Pages artifact တင်သည်
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ${{ env.PUBLISH_DIR }}
+
+  deploy:
+    # PR တွင် မထုတ်ဝေ၊ build မအောင်မြင်လျှင်လည်း မထုတ်ဝေ (needs ကြောင့်)
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: GitHub Pages သို့ ထုတ်ဝေသည်
+        id: deployment
+        uses: actions/deploy-pages@v5

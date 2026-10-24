@@ -1,0 +1,5 @@
+{{- /* render-blockquote-alert.html — GitHub ပုံစံ alert (> [!NOTE] စသည်) ကို .alert အကွက်အဖြစ် ပြောင်းသည်။ ရိုးရိုး blockquote များကို မထိပါ */ -}}
+<div class="alert" data-kind="{{ .AlertType }}" role="note">
+  <span class="alert__label">{{ with .AlertTitle }}{{ . }}{{ else }}{{ or (i18n (printf "alert_%s" .AlertType)) (upper .AlertType) }}{{ end }}</span>
+  {{ .Text }}
+</div>

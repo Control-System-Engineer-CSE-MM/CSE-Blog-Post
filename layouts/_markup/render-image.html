@@ -1,0 +1,12 @@
+{{- /* render-image.html — ပုံများကို sub-path (/<repo>/) အောက်တွင်လည်း မှန်ကန်စေပြီး lazy-load လုပ်သည်
+       ![alt](images/x.webp) သို့မဟုတ် ![alt](/images/x.webp) နှစ်မျိုးလုံး static/images/x.webp ကို ညွှန်းသည် */ -}}
+{{- $dest := .Destination -}}
+{{- $src := $dest -}}
+{{- if not (urls.Parse $dest).Scheme -}}
+  {{- with .PageInner.Resources.Get $dest -}}
+    {{- $src = .RelPermalink -}}
+  {{- else -}}
+    {{- $src = (strings.TrimPrefix "/" $dest) | relURL -}}
+  {{- end -}}
+{{- end -}}
+<img src="{{ $src }}" alt="{{ .Text | plainify }}"{{ with .Title }} title="{{ . }}"{{ end }} loading="lazy" decoding="async">

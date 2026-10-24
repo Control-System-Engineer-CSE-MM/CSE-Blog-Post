@@ -1,0 +1,18 @@
+{{- /* home.html — ပင်မစာမျက်နှာ (ASCII hero · မိတ်ဆက် · နောက်ဆုံးပို့စ် ၅ ခု) */ -}}
+{{ define "main" }}
+<h1 class="sr-only">{{ site.Title }}</h1>
+<section class="hero">
+  <pre class="ascii" role="img" aria-label="{{ site.Title }}">{{ partial "wordmark.html" . }}</pre>
+  {{ with site.Params.tagline }}<p class="hero__prompt"><span aria-hidden="true">$ </span><span class="cursor">{{ . }}</span></p>{{ end }}
+  {{ with .Content }}<div class="prose hero__lead">{{ . }}</div>{{ end }}
+</section>
+
+{{ $posts := where site.RegularPages "Section" "blog" }}
+<h2 class="section-title">{{ i18n "latest_posts" }}</h2>
+{{ with $posts }}
+  {{ range first 5 .ByDate.Reverse }}{{ partial "post-item.html" . }}{{ end }}
+  <p><a class="btn" href="{{ "blog/" | relLangURL }}">{{ i18n "all_posts" }}</a></p>
+{{ else }}
+  <p>{{ i18n "no_posts" }}</p>
+{{ end }}
+{{ end }}
